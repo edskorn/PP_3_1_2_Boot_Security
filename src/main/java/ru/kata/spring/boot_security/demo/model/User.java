@@ -7,12 +7,7 @@ import javax.validation.constraints.*;
 import java.util.*;
 
 @Entity
-@Table(name = "users", uniqueConstraints =
-        {
-                @UniqueConstraint(columnNames = "id"),
-                @UniqueConstraint(columnNames = "login")
-        }
-)
+@Table(name = "users")
 @UniqLogin(message = "Пользователь с таким логином уже зарегистрирован в системе")
 public class User {
     @Id
@@ -47,7 +42,7 @@ public class User {
     )
     private Set<Role> roles = new HashSet<>();
 
-    @Column(name = "login")
+    @Column(name = "login", unique = true)
     @NotEmpty(message = "Логин должен быть заполнен")
     @Pattern(regexp = "[A-Za-z0-9_]+", message = "Логин может состоять из букв латинского алфавита, цифр и символа подчёркивания")
     @Size(min=3, max=20, message = "Не меньше 3 и не больше 20-ти знаков")
